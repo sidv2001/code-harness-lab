@@ -1,0 +1,22 @@
+Coding harness: a narrow model view and a separate record
+===========================================================
+
+1. The in-run model keyhole contains a short objective, the latest bounded
+   observation, and at most three short ledger entries. A deterministic
+   FakeModel uses that input to choose one typed request. Calls have separate
+   hard turn and synthetic-cost limits.
+2. Requests are limited to list, read, propose_patch, ask_human, and finish.
+   There is no request for a shell command or network access.
+3. Policy checks a single allowlisted synthetic file, size limits, and path
+   safety. Denied requests yield bounded observations. For a proposed patch,
+   the human sees the exact diff and must type "approve"; a question's answer
+   cannot substitute for patch approval.
+4. An approved patch can change only the copied one-file workspace if the
+   original content still matches. A separate test-sandbox interface has no
+   executor in this starter, so candidate-code tests are NOT RUN and the edit
+   ends UNVERIFIED. A refusal leaves the file unchanged.
+5. A bounded observation and rolling ledger return to the model for the next
+   in-run step. Independently, a private append-only JSONL trace records
+   requests, decisions, observations, and the outcome. It is outside the
+   model-visible workspace, not replayed into model context, and cannot be
+   reused to inherit approvals on a new run.

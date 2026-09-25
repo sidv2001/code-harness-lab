@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 720" role="img" aria-labelledby="diagram-title diagram-desc">
+  <title id="diagram-title">Coding harness: a narrow model view and a separate record</title>
+  <desc id="diagram-desc">A scripted model receives a bounded objective, latest observation, and short ledger. It sends a typed request through file policy. A patch requires explicit human approval before changing a copied synthetic file. The test interface has no executor, so candidate tests are not run and approved edits are unverified. Bounded observations loop back to the model, while a separate private append-only trace records the run without being replayed into model context.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L9 4.5 L0 9 Z" fill="#46627d"/>
+    </marker>
+    <style>
+      text { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #172b45; }
+      .heading { font-size: 27px; font-weight: 750; letter-spacing: -.5px; }
+      .subheading { font-size: 15px; fill: #475e79; }
+      .eyebrow { font-size: 12px; font-weight: 750; letter-spacing: 1.6px; fill: #315d85; }
+      .title { font-size: 17px; font-weight: 740; }
+      .body { font-size: 14px; fill: #354d66; }
+      .caption { font-size: 12px; font-weight: 650; fill: #315d85; }
+      .card { fill: #fff; stroke: #b7cadf; stroke-width: 1.5; }
+      .flow { fill: none; stroke: #46627d; stroke-width: 2.4; marker-end: url(#arrow); }
+      .log-line { fill: none; stroke: #59718a; stroke-width: 2.2; stroke-dasharray: 5 5; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1120" height="720" rx="24" fill="#f5f8fc"/>
+  <text x="44" y="43" class="eyebrow">CODE-HARNESS-LAB / FIRST PUBLIC STARTER</text>
+  <text x="44" y="76" class="heading">A narrow view. An explicit decision. A durable record.</text>
+
+  <rect x="44" y="98" width="615" height="94" rx="14" fill="#e8f2fe" stroke="#98bce7" stroke-width="1.5"/>
+  <text x="63" y="125" class="eyebrow">MODEL KEYHOLE / IN-RUN ONLY</text>
+  <text x="63" y="151" class="body">Objective: 240 chars max  ·  latest observation: 640 chars max</text>
+  <text x="63" y="174" class="body">Rolling ledger: at most 3 entries, 96 chars each</text>
+  <rect x="677" y="98" width="399" height="94" rx="14" fill="#e8f6ef" stroke="#a4d1b9" stroke-width="1.5"/>
+  <text x="696" y="125" class="eyebrow">LIMITS &amp; RESET</text>
+  <text x="696" y="151" class="body">5 turns / 5 synthetic cost units</text>
+  <text x="696" y="174" class="body">Approval never carries into a new run</text>
+
+  <path d="M148 192 V234" class="flow"/>
+  <path d="M254 299 H302" class="flow"/>
+  <path d="M524 299 H572" class="flow"/>
+  <path d="M794 299 H842" class="flow"/>
+  <path d="M623 358 V426" class="flow"/>
+  <path d="M940 358 V395 H721 V426" class="flow"/>
+  <path d="M590 358 V382 H420 V426" class="flow"/>
+  <path d="M504 482 H456" class="flow"/>
+  <path d="M744 482 H792" class="flow"/>
+  <path d="M948 538 V559 H286 V538" class="flow"/>
+  <path d="M68 426 V383 H68 V358" class="flow"/>
+  <path d="M253 538 V591" class="log-line"/>
+
+  <rect x="44" y="238" width="210" height="120" rx="14" class="card"/>
+  <rect x="58" y="253" width="30" height="30" rx="9" fill="#dcecff"/>
+  <text x="68" y="274" class="eyebrow">1</text>
+  <text x="101" y="274" class="title">Scripted model</text>
+  <text x="62" y="307" class="body">Chooses one next request</text>
+  <text x="62" y="331" class="body">No shell access</text>
+
+  <rect x="304" y="238" width="220" height="120" rx="14" class="card"/>
+  <rect x="318" y="253" width="30" height="30" rx="9" fill="#e5e5fa"/>
+  <text x="328" y="274" class="eyebrow">2</text>
+  <text x="361" y="274" class="title">Typed request</text>
+  <text x="320" y="307" class="body">list · read · propose_patch</text>
+  <text x="320" y="331" class="body">ask_human · finish</text>
+
+  <rect x="574" y="238" width="220" height="120" rx="14" class="card"/>
+  <rect x="588" y="253" width="30" height="30" rx="9" fill="#e8f2fe"/>
+  <text x="598" y="274" class="eyebrow">3</text>
+  <text x="631" y="274" class="title">File policy</text>
+  <text x="590" y="307" class="body">One allowlisted file</text>
+  <text x="590" y="331" class="body">Size, link &amp; stale checks</text>
+
+  <rect x="844" y="238" width="232" height="120" rx="14" fill="#fff8e9" stroke="#dbbe7c" stroke-width="1.5"/>
+  <rect x="858" y="253" width="30" height="30" rx="9" fill="#f8e8bd"/>
+  <text x="868" y="274" class="eyebrow">4</text>
+  <text x="901" y="274" class="title">Human gate</text>
+  <text x="860" y="307" class="body">Patch: diff + "approve"</text>
+  <text x="860" y="331" class="body">Answer alone never approves</text>
+
+  <rect x="44" y="428" width="410" height="110" rx="14" fill="#e8f2fe" stroke="#98bce7" stroke-width="1.5"/>
+  <text x="62" y="458" class="eyebrow">BOUNDED OBSERVATION</text>
+  <text x="62" y="486" class="body">Tool status + clipped output return to the model.</text>
+  <text x="62" y="510" class="body">The full trace does not.</text>
+
+  <rect x="504" y="428" width="240" height="110" rx="14" class="card"/>
+  <text x="520" y="458" class="eyebrow">COPIED WORKSPACE</text>
+  <text x="520" y="486" class="body">One synthetic file</text>
+  <text x="520" y="510" class="body">Approved edit only</text>
+
+  <rect x="794" y="428" width="282" height="110" rx="14" fill="#fff2ee" stroke="#d7a69b" stroke-width="1.5"/>
+  <text x="810" y="458" class="eyebrow">TEST SANDBOX INTERFACE</text>
+  <text x="810" y="486" class="body">No executor installed</text>
+  <text x="810" y="510" class="body">NOT RUN → unverified</text>
+
+  <text x="804" y="223" class="caption">patch / ask_human</text>
+  <text x="636" y="402" class="caption">read / list</text>
+  <text x="785" y="388" class="caption">approved edit</text>
+  <text x="453" y="376" class="caption">deny</text>
+  <text x="77" y="402" class="caption">next step</text>
+  <text x="266" y="579" class="caption">logged separately</text>
+
+  <rect x="44" y="594" width="1032" height="100" rx="14" fill="#e9f5f2" stroke="#9cc7bd" stroke-width="1.5"/>
+  <text x="63" y="623" class="eyebrow">LOCAL APPEND-ONLY TRACE / JSONL</text>
+  <text x="63" y="650" class="body">Requests, decisions, observations, and outcome are recorded outside the model-visible workspace.</text>
+  <text x="63" y="674" class="body">Private file · new trace per run · never replayed as model context</text>
+</svg>

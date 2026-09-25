@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "code-harness-lab"
+version = "0.1.0"
+description = "An offline learning lab for an inspectable coding-agent harness"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {file = "LICENSE"}
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+code-harness-lab = "code_harness_lab.demo:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
